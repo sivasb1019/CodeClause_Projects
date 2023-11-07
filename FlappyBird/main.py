@@ -30,8 +30,8 @@ score = 0
 pass_pipe = False
 
 # Load game assets (images)
-bg_image = pygame.image.load("assets/bg-image1.png")
-ground = pygame.image.load("assets/ground.png")
+bg_img = pygame.image.load("assets/bg-image1.png")
+ground_img = pygame.image.load("assets/ground.png")
 restart_img = pygame.image.load("assets/restart.png")
 getready_img = pygame.image.load("assets/getready.png")
 gameover_img = pygame.image.load("assets/gameover.png")
@@ -160,7 +160,7 @@ while run:
     clock.tick(fps)
 
     # Draw the background
-    screen.blit(bg_image, (0, 0))
+    screen.blit(bg_img, (0, 0))
 
     # Update and draw the bird
     bird_group.draw(screen)
@@ -170,7 +170,7 @@ while run:
     pipe_group.draw(screen)
 
     # Draw the ground
-    screen.blit(ground, (ground_scroll, 550))
+    screen.blit(ground_img, (ground_scroll, 550))
 
     # Calculate and display the player's score
     if len(pipe_group) > 0:
