@@ -30,11 +30,12 @@ score = 0
 pass_pipe = False
 
 # Load game assets (images)
-bg_image = pygame.image.load("Icons/bg-image1.png")
-ground = pygame.image.load("Icons/ground.png")
-restart_img = pygame.image.load("Icons/restart.png")
-getready_img = pygame.image.load("Icons/getready.png")
-gameover_img = pygame.image.load("Icons/gameover.png")
+bg_image = pygame.image.load("assets/bg-image1.png")
+ground = pygame.image.load("assets/ground.png")
+restart_img = pygame.image.load("assets/restart.png")
+getready_img = pygame.image.load("assets/getready.png")
+gameover_img = pygame.image.load("assets/gameover.png")
+
 
 # Function to draw text on the screen
 def draw_text(text, font, color, x, y):
@@ -55,7 +56,7 @@ def reset_game():
 class Bird(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
-        self.images = [pygame.image.load(f'Icons/Bird{i}.png') for i in range(1, 4)]
+        self.images = [pygame.image.load(f'assets/Bird{i}.png') for i in range(1, 4)]
         self.index = 0
         self.counter = 0
         self.image = self.images[self.index]
@@ -99,9 +100,9 @@ class Bird(pygame.sprite.Sprite):
 class Pipe(pygame.sprite.Sprite):
     def __init__(self, x, y, position):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("Icons/pipe.png")
+        self.image = pygame.image.load("assets/pipe.png")
         self.rect = self.image.get_rect()
-        pipe_gap = random.randint(50,100)
+        pipe_gap = random.randint(50, 100)
         if position == -1:
             self.image = pygame.transform.flip(self.image, False, True)
             self.rect.bottomleft = [x, y - pipe_gap]
