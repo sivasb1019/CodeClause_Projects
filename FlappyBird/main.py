@@ -5,14 +5,14 @@ import random
 pygame.init()
 
 # Game parameters and window setup
-run = True
-fps = 60
-clock = pygame.time.Clock()
-screen_width = 800
-screen_height = 700
+RUN = True
+FPS = 60
+CLOCK = pygame.time.Clock()
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 700
 
 # Create the game window
-screen = pygame.display.set_mode((screen_width, screen_height))
+screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 pygame.display.set_caption("Flappy Bird")
 
 # Define fonts and colors
@@ -47,7 +47,7 @@ def draw_text(text, font, color, x, y):
 def reset_game():
     pipe_group.empty()
     flappy.rect.x = 100
-    flappy.rect.y = int(screen_height / 2)
+    flappy.rect.y = int(SCREEN_HEIGHT / 2)
     score = 0
     return score
 
@@ -147,17 +147,17 @@ bird_group = pygame.sprite.Group()
 pipe_group = pygame.sprite.Group()
 
 # Create the player's bird and add it to the bird group
-flappy = Bird(100, int(screen_height / 2))
+flappy = Bird(100, int(SCREEN_HEIGHT / 2))
 bird_group.add(flappy)
 
 # Create the button instances
-restart_btn = Button(screen_width // 2 - 45, screen_height // 2 - 60, restart_img)
-getready_btn = Button2(screen_width // 2 - 80, screen_height // 2 - 200, getready_img)
-gameover_btn = Button2(screen_width // 2 - 80, screen_height // 2 - 130, gameover_img)
+restart_btn = Button(SCREEN_WIDTH // 2 - 45, SCREEN_HEIGHT // 2 - 60, restart_img)
+getready_btn = Button2(SCREEN_WIDTH // 2 - 80, SCREEN_HEIGHT // 2 - 200, getready_img)
+gameover_btn = Button2(SCREEN_WIDTH // 2 - 80, SCREEN_HEIGHT // 2 - 130, gameover_img)
 
 # Main game loop
-while run:
-    clock.tick(fps)
+while RUN:
+    CLOCK.tick(FPS)
 
     # Draw the background
     screen.blit(bg_img, (0, 0))
@@ -183,7 +183,7 @@ while run:
                 score += 1
                 pass_pipe = False
 
-    draw_text(str(score), font, color, int(screen_width / 2) - 5, 20)
+    draw_text(str(score), font, color, int(SCREEN_WIDTH / 2) - 5, 20)
 
     # Check for collisions
     if pygame.sprite.groupcollide(bird_group, pipe_group, False, False) or flappy.rect.top < 0:
@@ -204,8 +204,8 @@ while run:
         time_now = pygame.time.get_ticks()
         if time_now - last_pipe > pipe_frequency:
             pipe_height = random.randint(-150, 50)
-            btm_pipe = Pipe(screen_width, int(screen_height / 2) + pipe_height, -1)
-            top_pipe = Pipe(screen_width, int(screen_height / 2) + pipe_height, 1)
+            btm_pipe = Pipe(SCREEN_WIDTH, int(SCREEN_HEIGHT / 2) + pipe_height, -1)
+            top_pipe = Pipe(SCREEN_WIDTH, int(SCREEN_HEIGHT / 2) + pipe_height, 1)
             pipe_group.add(btm_pipe)
             pipe_group.add(top_pipe)
             last_pipe = time_now
@@ -228,7 +228,7 @@ while run:
     # Event handling, including quitting the game and making the bird jump
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
-            run = False
+            RUN = False
         if event.type == pygame.MOUSEBUTTONDOWN and not fly and not game_over:
             fly = True
 
