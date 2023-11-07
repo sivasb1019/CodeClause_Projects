@@ -220,6 +220,7 @@ while run:
 
     # Handle game over and provide a restart option
     if game_over and not fly:
+        gameover_btn.draw()
         if restart_btn.draw():
             game_over = False
             score = reset_game()
