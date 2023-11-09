@@ -1,7 +1,7 @@
 # Pygame Flappy Bird
 
-* This code creates a simple and interactive game where the player controls a bird, avoids obstacles, and tries to achieve the highest score possible using the Pygame library.
-
+* The goal of this project is to create a simple clone of the popular mobile game "Flappy Bird" using the Pygame library, offering players a fun and challenging gaming experience.
+  
 * It sets up the Pygame environment, initializes Pygame, and configures the game window.
 
 * The game includes a player character (a bird) that the player controls by clicking the mouse to make the bird jump.
