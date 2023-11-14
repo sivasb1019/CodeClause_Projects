@@ -125,12 +125,15 @@ class Pipe(pygame.sprite.Sprite):
 
 
 # Function to display the score on the screen
-def display_score(points):
-    score_str = str(score)
-    for digit in reversed(score_str):  # Iterate through digits in reverse order
+def display_score(score):
+    x = int(SCREEN_WIDTH/2) - 5
+    for digit in reversed(score):  # Iterate through digits in reverse order
         digit_image = pygame.image.load(f"assets/images/{digit}.png")
-        screen.blit(digit_image, (int(SCREEN_WIDTH/2) - 5, 20))  # Display the digit image at (x, 10)
-
+        screen.blit(digit_image, (x, 20))  # Display the digit image at (x, 10)
+        if int(score) < 20:
+            x -= 15
+        else:
+            x -= 22
 
 # Button class for the restart button
 class Button:
@@ -198,8 +201,7 @@ while RUN:
             if bird_group.sprites()[0].rect.left > pipe_group.sprites()[0].rect.right:
                 score += 1
                 pass_pipe = False
-    display_score(score)
-    # draw_text(str(score), font, color, int(SCREEN_WIDTH / 2) - 5, 20)
+    display_score(str(score))
 
     # Check for collisions
     if pygame.sprite.groupcollide(bird_group, pipe_group, False, False) or flappy.rect.top < 0:
