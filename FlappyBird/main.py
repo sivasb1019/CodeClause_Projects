@@ -28,19 +28,24 @@ pipe_frequency = 1400  # milliseconds
 last_pipe = pygame.time.get_ticks() - pipe_frequency
 score = 0
 pass_pipe = False
+hit_sound = False
+die_sound = False
 
 # Load game assets (images)
-bg_img = pygame.image.load("assets/bg-image1.png")
-ground_img = pygame.image.load("assets/ground.png")
-restart_img = pygame.image.load("assets/restart.png")
-getready_img = pygame.image.load("assets/getready.png")
-gameover_img = pygame.image.load("assets/gameover.png")
+bg_img = pygame.image.load("assets/images/bg-image1.png")
+ground_img = pygame.image.load("assets/images/ground.png")
+restart_img = pygame.image.load("assets/images/restart.png")
+getready_img = pygame.image.load("assets/images/getready.png")
+gameover_img = pygame.image.load("assets/images/gameover.png")
 
-
-# Function to draw text on the screen
-def draw_text(text, font, color, x, y):
-    img = font.render(text, True, color)
-    screen.blit(img, (x, y))
+# Load game assets (audios)
+wing_aud = pygame.mixer.Sound("assets/audio/wing.wav")
+swoosh_aud = pygame.mixer.Sound("assets/audio/swoosh.wav")
+swoosh_aud.set_volume(0.15)
+hit_aud = pygame.mixer.Sound("assets/audio/hit.wav")
+hit_aud.set_volume(0.04)
+die_aud = pygame.mixer.Sound("assets/audio/die.wav")
+die_aud.set_volume(0.20)
 
 
 # Function to reset the game state
@@ -48,15 +53,18 @@ def reset_game():
     pipe_group.empty()
     flappy.rect.x = 100
     flappy.rect.y = int(SCREEN_HEIGHT / 2)
-    score = 0
-    return score
+    points = 0
+    global hit_sound, die_sound
+    hit_sound = False
+    die_sound = False
+    return points
 
 
 # Bird class for the player character
 class Bird(pygame.sprite.Sprite):
     def __init__(self, x, y):
         pygame.sprite.Sprite.__init__(self)
-        self.images = [pygame.image.load(f'assets/Bird{i}.png') for i in range(1, 4)]
+        self.images = [pygame.image.load(f'assets/images/Bird{i}.png') for i in range(1, 4)]
         self.index = 0
         self.counter = 0
         self.image = self.images[self.index]
@@ -79,6 +87,7 @@ class Bird(pygame.sprite.Sprite):
             if pygame.mouse.get_pressed()[0] == 1 and not self.clicked:
                 self.clicked = True
                 self.velocity = -6
+                swoosh_aud.play()
 
             if pygame.mouse.get_pressed()[0] == 0:
                 self.clicked = False
@@ -100,7 +109,7 @@ class Bird(pygame.sprite.Sprite):
 class Pipe(pygame.sprite.Sprite):
     def __init__(self, x, y, position):
         pygame.sprite.Sprite.__init__(self)
-        self.image = pygame.image.load("assets/pipe.png")
+        self.image = pygame.image.load("assets/images/pipe.png")
         self.rect = self.image.get_rect()
         pipe_gap = random.randint(50, 100)
         if position == -1:
@@ -114,6 +123,14 @@ class Pipe(pygame.sprite.Sprite):
         self.rect.x -= scroll_speed
         if self.rect.right < 0:
             self.kill()
+
+
+# Function to display the score on the screen
+def display_score(points):
+    score_str = str(score)
+    for digit in reversed(score_str):  # Iterate through digits in reverse order
+        digit_image = pygame.image.load(f"assets/images/{digit}.png")
+        screen.blit(digit_image, (int(SCREEN_WIDTH/2) - 5, 20))  # Display the digit image at (x, 10)
 
 
 # Button class for the restart button
@@ -182,21 +199,22 @@ while RUN:
             if bird_group.sprites()[0].rect.left > pipe_group.sprites()[0].rect.right:
                 score += 1
                 pass_pipe = False
-
-    draw_text(str(score), font, color, int(SCREEN_WIDTH / 2) - 5, 20)
+    display_score(score)
+    # draw_text(str(score), font, color, int(SCREEN_WIDTH / 2) - 5, 20)
 
     # Check for collisions
     if pygame.sprite.groupcollide(bird_group, pipe_group, False, False) or flappy.rect.top < 0:
         game_over = True
+        if not hit_sound and not die_sound:
+            hit_aud.play()  # Play hit sound effects when bird hit an object
+            hit_sound = True
+            die_aud.play()
+            die_sound = True
 
     # Check if the bird hits the ground
     if flappy.rect.bottom >= 550:
         game_over = True
         fly = False
-
-    # Display get ready button
-    if not fly and not game_over:
-        getready_btn.draw()
 
     # Update the game state when not in game over mode and the bird is flying
     if not game_over and fly:
@@ -217,6 +235,10 @@ while RUN:
 
         # Update the pipes
         pipe_group.update()
+
+    # Display get ready button
+    if not fly and not game_over:
+        getready_btn.draw()
 
     # Handle game over and provide a restart option
     if game_over and not fly:
