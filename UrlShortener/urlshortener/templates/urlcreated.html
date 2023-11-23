@@ -1,8 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<div class="alert alert-primary text-center" role="alert">
-    <h1>Your Short URL: "sivasb.com/{{ chars }}"</h1>
+<div class="container">
+    <div class="row justify-content-center align-items-center" style="height: 50vh;">
+        <div class="col-md-7 text-center">
+            <div class="alert alert-primary" role="alert">
+                <h4>Your Short URL: sb.com/{{ s_url }}</h4>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock content %}
