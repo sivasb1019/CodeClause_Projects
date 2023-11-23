@@ -1,8 +1,7 @@
 # Flappy Bird Game using Pygame 🐦🎮
+
+## Description
 - This project is a simplified version of the classic game "Flappy Bird" implemented in Python using the Pygame library.
-
-## 1. Description
-
 - The Flappy Bird game is a side-scrolling game where the player controls a bird by clicking the mouse to make it jump and navigate through obstacles (pipes).
 - The goal is to survive as long as possible by avoiding obstacles and passing through gaps between pipes to earn points.
 
