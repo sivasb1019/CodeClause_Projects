@@ -1,22 +1,15 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
-<style>
-    .text-center h2,
-    .text-center h4,
-    .text-center a{
-        margin-bottom: 20px;
-    }
-</style>
-
-<div class="text-center">
-    <h2>URL: {{ obj.original_url }}</h2>
-    <h4>Your Request: {{ obj.short_url }}</h4>
-    <a href="{{ obj.original_url }}">
-        <button type="button" class="btn btn-primary">Go To Website</button>
-    </a>
+<div class="container">
+    <div class="row justify-content-center mt-5">
+            <p class="h4 text-center py-3">Original URL: {{ obj.original_url }}</p>
+        <div class="col-md-6 text-center ">
+            <p class="h5 py-3">Your Request: {{ obj.short_url }}</p>
+            <a href="{{ obj.original_url }}" target="_blank">
+                <button type="button" class="btn btn-primary">Go To Website</button>
+            </a>
+        </div>
+    </div>
 </div>
 {% endblock content %}
-
-<!-- <div class="d-flex justify-content-center"></div> -->
