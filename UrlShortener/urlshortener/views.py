@@ -2,6 +2,7 @@ import random
 import string
 
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from .models import ShortURL
 from .forms import CreateNewShortURL
 from datetime import datetime
@@ -24,7 +25,7 @@ def createShortURL(request):
             now = datetime.now()
             url_form = ShortURL(original_url=original_link, short_url=random_char, date_created=now)
             url_form.save()
-            return render(request, 'urlcreated.html', {'chars': random_char})
+            return render(request, 'urlcreated.html', {'s_url': random_char})
     else:
         form = CreateNewShortURL()
         context = {'form': form}
