@@ -102,7 +102,6 @@ def stopPlaying():
             break
 
 
-
 def main():
     while True:
         command = listenCommand()
