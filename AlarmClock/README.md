@@ -10,3 +10,6 @@
 * **Snooze Functionality:** Ability to snooze the alarm for a specified duration.
 * **Sound Alert:** Rings an alarm sound (alarm.mp3) when the set alarm time is reached.
 * **Responsive Interface:** Built using Tkinter, providing a simple and intuitive graphical user interface.
+
+## Project Demo
+This project demo is posted on my [LinkedIn account](https://www.linkedin.com/posts/sivabalanv10_codeclause-internship-pythondevelopment-activity-7131875541837627393-JYTh?utm_source=share&utm_medium=member_desktop).
