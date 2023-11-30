@@ -1,9 +1,12 @@
+# Import necessary libraries and modules
 import os
+import time
 import speech_recognition as sr
 import pyttsx3 as pyt
 import subprocess
 import datetime
 import randfacts
+import random
 import wikipedia
 import webbrowser
 import pyjokes
@@ -11,6 +14,7 @@ import pywhatkit
 import warnings
 
 
+# Function to listen to user commands through microphone input
 def listenCommand():
     recognizer = sr.Recognizer()
     with sr.Microphone() as source:
@@ -19,28 +23,30 @@ def listenCommand():
         recognizer.adjust_for_ambient_noise(source, duration=1)
         audio = recognizer.listen(source)
     try:
-        command = recognizer.recognize_google(audio)
+        command = recognizer.recognize_google(audio)  # Recognize speech using Google Speech Recognition
         print("You:", command)
-        return command.lower()
+        return command.lower()  # Return the recognized command in lowercase
     except sr.UnknownValueError:
         return None
     except sr.RequestError as e:
         print("Could not request results from Google Speech Recognition service; {0}".format(e))
-        return   None
+        return None
 
 
+# Function to speak out responses or commands
 def speakCommand(command):
     print("Sara:", command)
     engine.say(command)
     engine.runAndWait()
 
 
+# Function to greet based on the time of day
 def greetings():
     now = datetime.datetime.now()
     hour = int(now.strftime("%H"))
     if hour >= 4 and hour < 12:
         return "Good Morning"
-    elif hour  >= 12 and hour < 16:
+    elif hour >= 12 and hour < 16:
         return "Good Afternoon"
     elif hour >= 16 and hour < 18:
         return "Good Evening"
@@ -48,6 +54,7 @@ def greetings():
         return "Good Night"
 
 
+# Function to create and save notes
 def note(notes):
     date = datetime.date.today()
     print(date)
@@ -56,9 +63,10 @@ def note(notes):
     file_no += 1
     with open(filename, "w") as f:
         f.write(notes)
-    subprocess.Popen(["notepad.exe", filename])
+    subprocess.Popen(["notepad.exe", filename])  # Open the saved note using Notepad
 
 
+# Function to open various applications based on user commands
 def openApp(command):
     if "chrome" in command:
         speakCommand("Opening Google Chrome")
@@ -91,6 +99,7 @@ def openApp(command):
         speakCommand("Application not available")
 
 
+# Function to stop playing YouTube videos
 def stopPlaying():
     while True:
         command = listenCommand()
@@ -98,10 +107,11 @@ def stopPlaying():
             continue
         elif "exit" in command or "quit" in command or "close" in command:
             speakCommand("Closing YouTube")
-            os.system("taskkill /f /im msedge.exe")
+            os.system("taskkill /f /im msedge.exe")  # Terminate Microsoft Edge
             break
 
 
+# Main function to handle user commands and interactions
 def main():
     while True:
         command = listenCommand()
@@ -111,7 +121,8 @@ def main():
                 command = listenCommand()
                 if command != None:
                     if "who are you" in command or "define yourself" in command:
-                        speakCommand("Hello! I'm Sara, your helpful assistant here to assist you with anything you need.")
+                        speakCommand(
+                            "Hello! I'm Sara, your helpful assistant here to assist you with anything you need.")
 
                     elif "who am i" in command or "who i am" in command:
                         speakCommand("Sorry, I can't identify individuals. It seems like you're a human! "
@@ -126,7 +137,10 @@ def main():
                     elif "made you" in command or "created you" in command:
                         speakCommand("I was created by Siva Bawlan")
 
-                    elif "how are you" in command or "how r u"in command:
+                    elif any(phrase in command for phrase in GREETING_PHRASE):
+                        speakCommand(random.choice(GREETING_PHRASE) + "Sir")
+
+                    elif "how are you" in command or "how r u" in command:
                         speakCommand("I'm doing well, thank you! How about you?")
                         command = listenCommand()
                         if "am fine" in command or "am good" in command or "doing good" in command:
@@ -149,18 +163,19 @@ def main():
                                 speakCommand("I've made a note of that successfully.")
                                 break
                             else:
-                                speakCommand("Please dictate a note for me to write down, so I can take a note for you.")
+                                speakCommand(
+                                    "Please dictate a note for me to write down, so I can take a note for you.")
                                 continue
 
                     elif "day" in command or "date" in command or "month" in command:
                         now = datetime.datetime.now()
                         speakCommand(f"Today is {now.strftime('%A')}, {now.strftime('%B')} "
-                                f"{now.strftime('%d')}, {now.strftime('%Y')}.")
+                                     f"{now.strftime('%d')}, {now.strftime('%Y')}.")
 
                     elif "time" in command:
                         now = datetime.datetime.now()
                         speakCommand(f"It's {int(now.strftime('%I'))} {now.strftime('%M')} "
-                                f"{now.strftime('%p')}.")
+                                     f"{now.strftime('%p')}.")
 
                     elif "fact" in command or "facts" in command:
                         speakCommand("Here is a fact for you Sir.")
@@ -168,7 +183,7 @@ def main():
                         speakCommand("Did you know, " + fact)
 
                     elif any(phrase in command for phrase in WIKI_PHRASE):
-                        wiki_list  = command.split()
+                        wiki_list = command.split()
                         query = wiki_list[-2] + " " + wiki_list[-1]
                         speakCommand(f"Searching for {query}")
                         try:
@@ -214,28 +229,39 @@ def main():
                             pywhatkit.playonyt(query)
                         stopPlaying()
 
+                    elif "sleep" in command or "mute" in command or "rest" in command or "silent" in command:
+                        speakCommand("How many seconds do I need to stay silent?")
+                        command = listenCommand()
+                        command = command.replace("for", "").replace("seconds", "")
+                        speakCommand(f"Understood, I'll remain silent for the next {command} seconds.")
+                        time.sleep(int(command))
+                        speakCommand(f"Alright, I'm back. It's been {command} seconds. How can I assist you?")
+
 
                     elif "bye" in command or "exit" in command or "quit" in command:
                         speakCommand("Goodbye Sir, Have a nice day.")
                         exit()
 
                     else:
-                        speakCommand("Apologies, I'm afraid I don't have information on that. My knowledge is somewhat limited.")
+                        speakCommand(
+                            "Apologies, I'm afraid I don't have information on that. My knowledge is somewhat limited.")
 
                 else:
                     speakCommand("Please say something. So that I can assist you")
 
 
-
 if __name__ == "__main__":
+    # Initialization and setup before running the main function
+    # Setting up voice properties, defining phrases, initializing variables
     warnings.filterwarnings("ignore")
     engine = pyt.init()
     voices = engine.getProperty("voices")
     engine.setProperty("voice", voices[1].id)
     engine.setProperty("rate", 150)
-    NOTE_PHRASE = ["make a note", "write a note","write this down",
+    GREETING_PHRASE = ["hi", "hello", "Welcome", "hola"]
+    NOTE_PHRASE = ["make a note", "write a note", "write this down",
                    "save this", "remember this"]
-    WIKI_PHRASE = ["tell me about", "who is", "who are","brief", "wikipedia"]
-    SEARCH_PHRASE = ["sara", "search","for", " in google", "in youtube"]
+    WIKI_PHRASE = ["tell me about", "who is", "who are", "brief", "wikipedia"]
+    SEARCH_PHRASE = ["sara", "search", "for", " in google", "in youtube"]
     file_no = 1
-    main()
+    main()  # Start the main function to interact with the user
