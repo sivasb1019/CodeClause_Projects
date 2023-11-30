@@ -40,5 +40,5 @@ This project is for educational purposes and may require adjustments for persona
 - Thanks to the creators and contributors of the libraries used in this project.
 - Inspiration drawn from various voice assistant technologies.
 
-## License
-This project is licensed under the [MIT License](link-to-license).
+## Project Demo
+This project demo is posted on my [LinkedIn account](link-to-license).
