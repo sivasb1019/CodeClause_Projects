@@ -1,4 +1,4 @@
-# Django URL Shortener Project
+# Django URL Shortener Project 🌐🔗
 
 ## Project Overview
 
