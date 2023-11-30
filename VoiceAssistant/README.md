@@ -41,4 +41,4 @@ This project is for educational purposes and may require adjustments for persona
 - Inspiration drawn from various voice assistant technologies.
 
 ## Project Demo
-This project demo is posted on my [LinkedIn account] [.](https://www.linkedin.com/posts/sivabalanv10_codeclause-internship-voiceassistant-activity-7135995069353918464-Jzeg?utm_source=share&utm_medium=member_android)
+This project demo is posted on my [LinkedIn account](https://www.linkedin.com/posts/sivabalanv10_codeclause-internship-voiceassistant-activity-7135995069353918464-Jzeg?utm_source=share&utm_medium=member_android)
