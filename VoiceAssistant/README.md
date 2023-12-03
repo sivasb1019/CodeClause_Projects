@@ -3,7 +3,7 @@
 ## Overview
 * Sara is a voice-based assistant developed in Python, designed to understand and execute voice commands for various tasks.
 * It utilizes speech recognition, text-to-speech conversion, web browsing, and API integration to provide assistance to users.
-* Check out the demo video of the project [Click here](https://www.linkedin.com/posts/sivabalanv10_codeclause-internship-voiceassistant-activity-7135995069353918464-Jzeg?utm_source=share&utm_medium=member_android)
+* Check out the demo video of the project [Click here](https://www.linkedin.com/feed/update/urn:li:activity:7135995069353918464/)
 
 ## Features
 - **Speech Recognition**: Converts spoken commands to text for interpretation.
@@ -43,4 +43,4 @@ This project is for educational purposes and may require adjustments for persona
 - Inspiration drawn from various voice assistant technologies.
 
 ## Project Demo
-This project demo is posted on my [LinkedIn account](https://www.linkedin.com/posts/sivabalanv10_codeclause-internship-voiceassistant-activity-7135995069353918464-Jzeg?utm_source=share&utm_medium=member_android)
+This project demo is posted on my [LinkedIn account](https://www.linkedin.com/feed/update/urn:li:activity:7135995069353918464/)
