@@ -4,8 +4,7 @@
 
 - This Django-based URL Shortener is a web application designed to generate shortened versions of URLs provided by users.
 - It's a simple yet efficient tool that creates shorter, more manageable links for lengthy URLs.
-- Check out the demo video of the project [Click here](https://www.linkedin.com/posts/sivabalanv10_pythondevelopment-urlshortener-codeclauseinternship-activity-7133410003222241280-g9f1?utm_source=share&utm_medium=member_desktop).
-
+- Check out the demo video of the project [clcik here](https://www.linkedin.com/feed/update/urn:li:activity:7133410003222241280/).
 
 ## Features
 
@@ -44,4 +43,4 @@ Contributions to the project are welcome! Feel free to fork the repository, make
 
  ## Project Demo
  
-This project demo is posted on my [LinkedIn account](https://www.linkedin.com/posts/sivabalanv10_pythondevelopment-urlshortener-codeclauseinternship-activity-7133410003222241280-g9f1?utm_source=share&utm_medium=member_desktop).
+This project demo is posted on my [LinkedIn account](https://www.linkedin.com/feed/update/urn:li:activity:7133410003222241280/).
